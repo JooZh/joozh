@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue</title>
+  <link rel="stylesheet" href="../assets/bootstrap.min.css">
+  <style>
+    body {
+      padding: 20px;
+    }
+  </style>
+  <script src="../assets/jquery-1.7.2.js"></script>
+  <script src="../assets/bootstrap.js"></script>
+  <script src="../assets/vue.js"></script>
+  <script>
+    $(function () {
+      new Vue({
+        el: '#toDoList',
+        data: {
+          myData: [],
+          username: '',
+          age: '',
+          nowIndex:-1
+        },
+        methods: {
+          add: function () {
+            this.myData.push({
+              username: this.username,
+              age: this.age
+            });
+            this.username = '';
+            this.age = '';
+          },
+          del:function (n) {
+            if(n=="all"){
+              this.myData=[];
+            }else{
+              this.myData.splice(n,1);
+            }
+          }
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+<h3 class="text-center">第一课时：实践（bootstrap简易留言板）</h3>
+<hr>
+<div id="toDoList" class="container">
+  <form role="form">
+    <div class="form-group">
+      <label for="username">用户名：</label>
+      <input type="text" id="username" class="form-control" placeholder="请输入用户名" v-model="username">
+    </div>
+    <div class="form-group">
+      <label for="age">年 龄：</label>
+      <input type="text" id="age" class="form-control" placeholder="请输入年龄" v-model="age">
+    </div>
+    <div class="form-group">
+      <input type="button" value="添加" class="btn btn-primary" @click="add()">
+      <input type="reset" value="重置" class="btn btn-danger">
+    </div>
+  </form>
+  <hr>
+  <h4 class="text-center">用户信息表</h4>
+  <table class="table table-bordered">
+    <tr class="text-danger">
+      <th class="text-center">序号</th>
+      <th class="text-center">名字</th>
+      <th class="text-center">年龄</th>
+      <th class="text-center">操作</th>
+    </tr>
+    <tr v-for="item in myData">
+      <td class="text-center">{{$index+1}}</td>
+      <td class="text-center">{{item.username}}</td>
+      <td class="text-center">{{item.age}}</td>
+      <td class="text-center">
+        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"
+                @click="nowIndex=$index">删除
+        </button>
+      </td>
+    </tr>
+    <tr v-show="myData.length>1">
+      <td colspan="4" class="text-center">
+        <button class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#myModal" @click="nowIndex='all'">
+          删除全部</button>
+      </td>
+    </tr>
+    <tr v-show="myData.length==0">
+      <td colspan="4" class="text-center"><h5>暂无数据...</h5></td>
+    </tr>
+    <div role="modal" id="myModal" class="modal fade">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            <h4 v-show="nowIndex != 'all'" class="modal-title">确认删除吗？</h4>
+            <h4 v-show="nowIndex == 'all'" class="modal-title">确认删除全部吗？</h4>
+          </div>
+          <div class="modal-body text-right">
+            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" @click="del(nowIndex)">确定
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </table>
+</div>
+<hr>
+<section>
+  <h3>实践总结</h3>
+  <h5>1) bootstrap 的使用</h5>
+  <ul>
+    <li>页面采用bootstrap前端框架进行布局。</li>
+    <li>表单，按钮，模态框的使用。</li>
+    <li>class 属性在bootstrap中的作用。</li>
+  </ul>
+  <h5>2) v-show 的使用条件</h5>
+  <ul>
+    <li>暂无数据显示：在 myData.length == 0 的条件下生效</li>
+    <li>删除全部按钮：在 myData.length > 1 的条件下生效</li>
+  </ul>
+  <h5>3) 拿到删除对象的索引</h5>
+  <ul>
+    <li>使用 nowIndex 参数 初始化 (nowIndex = -1)</li>
+    <li>1. 在点击 删除按钮 的时候 v-on:click="nowIndex = $index" 得到每个数据对象的索引</li>
+    <li>2. 在点击 全部删除按钮 的时候 v-on:click="nowIndex = 'all'" 设置当前nowIndex 的值为'all'。</li>
+    <li>3. 模态框弹出按钮后点击确定按钮执行 v-on:click="del(nowIndex)" 在 del() 方法中传入当前的 nowIndex 的值</li>
+  </ul>
+  <h5></h5>
+  <hr>
+  <section>
+    <h3>Js源码</h3>
+    <pre>
+$(function () {
+  new Vue({
+    el: '#toDoList',
+    data: {
+      myData: [],
+      username: '',
+      age: '',
+      nowIndex:-1
+    },
+    methods: {
+      add: function () {
+        this.myData.push({
+          username: this.username,
+          age: this.age
+        });
+        this.username = '';
+        this.age = '';
+      },
+      del:function (n) {
+        if(n=="all"){
+          this.myData=[];
+        }else{
+          this.myData.splice(n,1);
+        }
+      }
+    }
+  });
+});</pre>
+  </section>
+</section>
+
+</body>
+</html>

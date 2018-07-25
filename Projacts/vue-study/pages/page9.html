@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue-2.0</title>
+  <link rel="stylesheet" href="../assets/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/common.css">
+  <style>
+    /*定义初始值*/
+    .sp{
+      width: 200px;
+      height: 200px;
+      border:1px solid #5e5e5e;
+      background: #cccccc;
+    }
+    .inbox{
+      width: 300px;
+      height:300px;
+    }
+    /*定义运动对象和时间*/
+    .fade-enter-active,
+    .fade-leave-active{
+      transition: 1s all ease;
+    }
+    /*动画完的状态*/
+    .fade-enter-active{
+      opacity:1;
+      width: 200px;
+      height:200px;
+    }
+    /*动画完的状态*/
+    .fade-leave-active{
+      opacity:0;
+      width: 100px;
+      height:100px;
+    }
+    /*初始状态,离开状态*/
+    .fade-enter,
+    .fade-leave{
+      opacity:0;
+      width: 100px;
+      height:100px;
+    }
+  </style>
+  <script src="../assets/vue2.0.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="title">
+    <h3>Vue2.0变化</h3>
+    <hr>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <section>
+        <h4>1. 组件模板的变化</h4>
+        <p>1). 不在建议使用 Vue.extend(); 方法创建组件</p>
+        <p>可以继续使用 Vue.component(); 创建</p>
+        <p>2.0组件的定义方式：</p>
+        <pre>
+var Home = {
+  template:"#tem"
+}
+Vue.component('name',Home);
+</pre>
+        <p>2). 不在支持片段化代码(必须要有一个根元素)</p>
+        <pre>
+&lt;!--1.0 组件模板-->
+&lt;template id="templateId">
+  &lt;h1>父组件&lt;/h1>&lt;p>我是文本&lt;/p>
+&lt;/template>
+
+&lt;!--2.0 组件模板 根元素-->
+&lt;template id="templateId">
+  &lt;div>
+    &lt;h1>父组件&lt;/h1>
+    &lt;p>我是文本&lt;/p>
+  &lt;/div>
+&lt;/template>
+</pre>
+        <hr>
+      </section>
+      <section>
+        <h4>2. vue 生命周期的变化</h4>
+        <p>之前的生命周期</p>
+        <pre>
+var vm = new Vue({
+  //实例已经创建
+  created:function (){},
+  //编译之前
+  beforeCompile:function () {},
+  //编译之后
+  compiled:function () {},
+  //插入到文档中
+  ready:function () {},
+  //销毁之前
+  beforeDestroy:function () {},
+  //销毁之后
+  destroyed:function () {}
+});
+</pre>
+        <p>现在的生命周期</p>
+        <pre>
+var vm = new Vue({
+  //实例刚刚被创建
+  beforeCreate:function (){},
+  //实例创建完成，属性已经绑定
+  created:function () {},
+  //模板编译之前
+  beforeMount:function () {},
+  //模板已经编译完成
+  mounted:function () {},
+  //组件更新之前
+  beforeUpdate:function(){},
+  //组件更新完毕
+  updated:function(){},
+  //组件销毁之前
+  beforeDestroy:function () {},
+  //组件销毁之后
+  destroyed:function () {}
+});
+</pre>
+        <hr>
+      </section>
+      <section>
+        <h4>3. 循环的改变</h4>
+        <p>2.0里面默认就能添加重复的数据 不再依赖 track-by</p>
+        <p>去掉一些隐式的变量如：$index $key 等等</p>
+        <p>现在数组/json索引的方法：自定义</p>
+        <pre>
+&lt;div v-for="(val,index) in arr">
+  <span>{{</span>val}} {{index<span>}}</span>
+&lt;/div>
+</pre>
+        <p>提升循环的性能 :key="index"</p>
+        <pre>
+&lt;div v-for="(val,index) in arr" :key="index">&lt;/div>
+</pre>
+        <p>vue的写法更接近js的原生写法</p>
+        <hr>
+      </section>
+      <section>
+        <h4>4. 自定义键盘按键的改变</h4>
+        <p>之前的：定义方式</p>
+        <pre>
+Vue.directive("on").keyCodes.ctrl=17;
+</pre>
+        <p>现在的定义方式</p>
+        <pre>
+Vue.config.keyCodes.ctrl=17;
+</pre>
+        <hr>
+      </section>
+      <section>
+        <h4>5. 过滤的改变</h4>
+        <p>之前系统自带很多过滤器</p>
+        <pre>
+<span>{{</span>msg | currency}}
+<span>{{</span>msg | json}}
+</pre>
+        <p><b class="j">2.0版本内置过滤器全部删除了</b></p>
+        <p>作者 推荐使用 <b class="j">lodash</b>工具库 请自行百度</p>
+        <p>json 过滤器 虽然被废除但是已经直接能打印出 json</p>
+        <p>自定义过滤器的传参改变：</p>
+        <p>之前：</p>
+        <pre>
+<span>{{msg|filterName 'arg1' 'arg2'</span>}}
+</pre>
+        <p>现在：</p>
+        <pre>
+<span>{{msg|filterName('arg1','arg2')</span>}}
+</pre>
+        <hr>
+      </section>
+      <section>
+        <h4>6. 组件通信的变化</h4>
+        <p>之前：</p>
+        <p>1. 子组件拿到父组件的数据 通过 props[];</p>
+        <p>2. 子组件可以更改父组件的信息，使用.sync 同步</p>
+        <p>现在：</p>
+        <p>1. 不允许通过 .sync 同步</p>
+        <p>2. 想要更改父组件需要传递一个对象给子组件。（在js中对象是可以传递的）</p>
+        <p>3. 可以单一事件管理组件的通信。</p>
+        <pre>
+//step1 : 准备一个对象
+var Event = new Vue();
+//step2 : 发送数据
+Event.$emit(eventName,data);
+//step3 : 接收数据
+Event.$on(eventName,function(data){
+  //data
+}.bind(this));
+</pre>
+        <hr>
+      </section>
+      <setction>
+        <h4>7. 动画的改变</h4>
+        <p>之前：transition 是一个属性</p>
+        <p>现在：transition 是一个组件</p>
+        <pre>
+&lt;transition name="name">
+  //放置运动的东西，（元素，属性，路由）
+&lt;/transition>
+</pre>
+        <hr>
+        <h5><b>示例：点击动画</b></h5>
+        <div id="box">
+          <p><input type="button" value="click me" @click="show=!show"></p>
+          <p>{{text}}</p>
+          <div class="inbox">
+            <transition name="fade"
+              @before-enter="beforeEnter"
+              @enter="enter"
+              @after-enter="afterEnter"
+              @before-leave="beforeLeave"
+              @leave="leave"
+              @after-leave="afterLeave"
+            >
+              <p class="sp" v-show="show"></p>
+            </transition>
+          </div>
+        </div>
+        <hr>
+        <h5><b>代码解析</b></h5>
+        <p>css 结构</p>
+        <pre>
+/*定义初始值*/
+.sp{
+  width: 200px;
+  height: 200px;
+  border:1px solid #5e5e5e;
+  background: #cccccc;
+}
+/*定义运动对象和时间*/
+.fade-enter-active,
+.fade-leave-active{
+  transition: 1s all ease;
+}
+/*动画完的状态*/
+.fade-enter-active{
+  opacity:1;
+  width: 200px;
+  height:200px;
+}
+/*动画完的状态*/
+.fade-leave-active{
+  opacity:0;
+  width: 100px;
+  height:100px;
+}
+/*初始状态,离开状态*/
+.fade-enter,
+.fade-leave{
+  opacity:0;
+  width: 100px;
+  height:100px;
+}
+        </pre>
+        <p>动画事件 结构</p>
+        <pre>
+methods:{
+  beforeEnter:function () {
+    alert('动画进入前');
+  },
+  enter:function () {
+    this.text='动画进入';
+  },
+  afterEnter:function () {
+    this.text='动画完成之后';
+  },
+  beforeLeave:function () {
+    this.text='动画离开之前';
+  },
+  leave:function () {
+    this.text='动画离开';
+  },
+  afterLeave:function () {
+    this.text='动画离开之后';
+  }
+}
+</pre>
+        <p>对应的html事件</p>
+        <pre>
+@before-enter="beforeEnter"
+@enter="enter"
+@after-enter="afterEnter"
+@before-leave="beforeLeave"
+@leave="leave"
+@after-leave="afterLeave"
+</pre>
+        <hr>
+        <h5><b>配合animation.css使用</b></h5>
+        <p>html结构</p>
+        <pre>
+&lt;transition
+    enter-active-class="animateClassEnter"
+    leave-active-class="animateClassLeave">
+  &lt;p v-show="show" class="animated">&lt;/p>
+&lt;/transition>
+</pre>
+        <hr>
+        <h5><b>多个元素的动画</b></h5>
+        <p>使用transition-group 并且绑定 :key="list"</p>
+        <p>html结构</p>
+        <pre>
+&lt;transition-group
+    enter-active-class="animateClassEnter"
+    leave-active-class="animateClassLeave">
+  &lt;p v-show="show" class="animated" :key="1">&lt;/p>
+  &lt;p v-show="show" class="animated" :key="2">&lt;/p>
+&lt;/transition-group>
+</pre>
+        <hr>
+      </setction>
+      <section>
+        <h4>8. 路由的变化 router</h4>
+        <p>html结构的变化</p>
+        <p>会默认添加 class="router-link-active"</p>
+        <pre>
+&lt;div>
+  &lt;router-link to="/home">主页&lt;/router-link>
+  &lt;router-link to="/news">新闻&lt;/router-link>
+&lt;/div>
+&lt;router-view>&lt;/router-view>
+</pre>
+        <p>js配置变化</p>
+        <pre>
+//配置组件
+var Home ={
+  template:'#home'
+};
+var News = {
+  template:'#news'
+};
+//配置路由
+const routers=[
+  {path:"/home",component:Home},
+  {path:"/news",component:News},
+  //之前router上的redirect已经报废了
+  //现在使用的是
+  {path:"/*",redirect:'/home'} //什么都找不到就调到home
+];
+//生成路由实例
+const router = new VueRouter({
+  routers
+});
+//挂载到节点上
+new Vue({
+  router,
+  el:'#box'
+});
+</pre>
+        <p>配置子路由</p>
+        <p>html 导航部分</p>
+        <pre>
+&lt;div>
+  &lt;router-link to="/user/name1/age/10">name1&lt;/router-link>
+  &lt;router-link to="/user/name2/age/20">name2&lt;/router-link>
+  &lt;router-link to="/user/name3/age/30">name3&lt;/router-link>
+  &lt;router-link to="/user/name4/age/40">name4&lt;/router-link>
+&lt;/div>
+&lt;router-view>&lt;/router-view>
+</pre>
+        <p>Js 配置部分</p>
+        <pre>
+const routers=[
+  {path:"/home",component:Home},
+  //子路由的配置
+  <b class="j">{
+    path:'/user',
+    component:User,
+    children:[
+      {path:':username/age/:age',component:UserDetail}
+    ]
+  }</b>
+  {path:"/news",component:News},
+];
+</pre>
+        <hr>
+      </section>
+      <section>
+        <h4>vue-cli 的变化</h4>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
+  new Vue({
+    el:'#box',
+    data:{
+      show:false,
+      text:'动画进入之前'
+    },
+    methods:{
+      beforeEnter:function () {
+        alert('动画进入前');
+      },
+      enter:function () {
+        this.text='动画进入';
+      },
+      afterEnter:function () {
+        this.text='动画完成之后';
+      },
+      beforeLeave:function () {
+        this.text='动画离开之前';
+      },
+      leave:function () {
+        this.text='动画离开';
+      },
+      afterLeave:function () {
+        this.text='动画离开之后';
+      }
+    }
+  });
+</script>
+</body>
+</html>
