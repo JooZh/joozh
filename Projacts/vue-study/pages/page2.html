@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue-交互</title>
+  <link rel="stylesheet" href="../assets/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/common.css">
+  <style>
+    li{
+      list-style: none;
+      cursor: pointer;
+      width: 300px;
+      line-height:25px;
+      text-indent:10px;
+    }
+    .gary{
+      background: #f0f0f0;
+    }
+    li:hover{
+      background-color: #f0f0f0;
+    }
+    .search{
+      border:1px solid #ccc;
+    }
+    .search p{
+      padding:20px 0px 0px 20px;
+    }
+    .search ul{
+      padding-left: 20px;
+    }
+    .search input{
+      width:250px;
+      text-indent: 10px;
+    }
+  </style>
+  <script src="../assets/vue.js"></script>
+  <script src="../assets/vue-resource.js"></script>
+  <script>
+    window.onload = function () {
+      new Vue({
+        el: 'body',
+        data: {
+          number1:'',
+          number2:'',
+          number3:'',
+          number4:'',
+          text:'',
+          myData:[],
+          now:-1
+        },
+        methods: {
+          add: function(){
+            //发送请求
+            this.$http({
+              url:'http://url', //请求地址
+              data:{ //发送出去的数据 php文件接收的字段
+                act:'add',
+                content:this.text
+              }
+            }).then(function (res) {
+              var json = res.data;
+              this.myData.unshift({
+                dat0:this.text,
+                dat1:json.time,
+                data3:0,
+                data4:3,
+                data5:json.id
+              });
+            },function (res) {
+              alert(res.status);
+            });
+          },
+          get1: function () {
+            this.$http.get('./resource/a.txt').then(function (res) {
+              alert(res.data);
+            }, function (res) {
+              alert(res.status);
+            });
+          },
+          get2: function () {
+            this.$http.get('./resource/aa.text').then(function (res) {
+              alert(res.data);
+            }, function (res) {
+              alert('获取失败：' + res.status);
+            });
+          },
+          get3: function () {
+            this.$http.get('./resource/get.php',{
+              a:this.number1,
+              b:this.number2
+            }).then(function (res) {
+              alert(res.data);
+            }, function (res) {
+              alert('获取失败：' + res.status);
+            });
+          },
+          post:function () {
+            this.$http.post('./resource/post.php',{
+              a:this.number3,
+              b:this.number4
+            },{
+              emulateJSON:true
+            }).then(function (res) {
+              alert(res.data);
+            },function (res) {
+              alert(res.status);
+            });
+          },
+          jsonp:function (ev) {
+            //判断当前是否为上下键
+            if(ev.keyCode == 38 || ev.keyCode==40){
+              return;
+            }
+            //发起请求
+            this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+              wd:this.text
+            },{
+              jsonp:'cb' //callback名字
+            }).then(function (res) {
+              this.myData = res.data.s;
+            },function (res) {
+              alert(res.status);
+            });
+          },
+          go:function () {
+            window.open('https://www.baidu.com/s?wd='+this.text);
+            this.text='';
+            this.myData=[];
+          },
+          changeDown:function () {
+            this.now++;
+            if(this.now==this.myData.length){
+              this.now=0;
+            }
+            this.text=this.myData[this.now];
+          },
+          changeUp:function () {
+            this.now--;
+            if(this.now == -1){
+              this.now = this.myData.length-1;
+            }
+            this.text=this.myData[this.now];
+          }
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+<div class="container">
+  <div class="title">
+    <h3>第二课时 数据交互 $http</h3>
+    <hr>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <section>
+        <h3>vue里面的数据交互 $http</h3>
+        <hr>
+      </section>
+      <section>
+        <h4>$http (ajax) 相类似的数据交互</h4>
+        <p>vue本身是不能做交互的 需要引入 vue-resource 进行交互设计</p>
+        <p>常见的几种交互</p>
+        <ul>
+          <li>get() 获取数据</li>
+          <li>post() 发送数据</li>
+          <li>jsonp() 跨域获取数据</li>
+        </ul>
+        <hr>
+      </section>
+      <section>
+        <h4>基本模式：类似于ajax</h4>
+        <pre>
+add: function(){
+  //发送请求
+  this.$http({
+    url:'http://url', //请求地址
+    //这里的data 不同于vue的属性data请注意。
+    data:{ //发送出去的数据 php文件接收的字段
+      act:'add',
+      content:this.text
+    }
+  }).then(function (res) {
+    var json = res.data;
+    this.myData.unshift({
+      dat0:this.text,
+      dat1:json.time,
+      data3:0,
+      data4:3,
+      data5:json.id
+    });
+  },function (res) {
+    alert(res.status);
+  });
+}</pre>
+        <hr>
+      </section>
+      <section>
+        <h4>get 方式进行交互</h4>
+        <p>点击按钮获取文件：
+          <button type="button" @click="get1()">click me</button> 成功返回数据
+        </p>
+        <p>点击按钮获取文件：
+          <button type="button" @click="get2()">click me</button> 失败返回状态码
+        </p>
+        <pre>
+  //获取成功
+get: function () {
+  this.$http.get('./resource/a.txt').then(function (res) {
+    alert(res.data);
+  }, function (res) {
+    alert(res.status);
+  });
+}
+
+//获取失败 文件不存在
+get: function () {
+  this.$http.get('./resource/aa.txt').then(function (res) {
+    alert(res.data);
+  }, function (res) {
+    alert(res.status);
+  });
+}
+</pre>
+        <p>点击发送数据：
+          <input type="number" v-model="number1" style="width:60px;"> +
+          <input type="number" v-model="number2" style="width:60px;">
+          <button type="button" @click="get3()">send</button> 返回服务器结果
+        </p>
+        <pre>
+get: function () {
+  this.$http.get('./resource/get.php',{
+    a:this.number1,
+    b:this.number2
+  }).then(function (res) {
+    alert(res.data);
+  }, function (res) {
+    alert('返回失败：' + res.status);
+  });
+}
+</pre>
+        <p>ps: 在服务器端发送数据返回结果传参 在get(url,options) 添加参数对象options</p>
+        <hr>
+      </section>
+      <section>
+        <h4>post 方式进行交互</h4>
+        <p>点击发送数据：
+          <input type="number" v-model="number3" style="width:60px;"> -
+          <input type="number" v-model="number4" style="width:60px;">
+          <button type="button" @click="post()">send</button> 返回服务器结果
+        </p>
+        <pre>
+post:function () {
+  this.$http.post('./resource/post.php',{
+    a:this.number3,
+    b:this.number4
+  },{
+    emulateJSON:true
+  }).then(function (res) {
+    alert(res.data);
+  },function (res) {
+    alert(res.status);
+  });
+}
+</pre>
+        <p>ps: 用post方式进行交互的时候需要用到第三个参数 {emulateJSON:true}</p>
+        <hr>
+      </section>
+      <section>
+        <h4>jsonp 跨域请求 示例（基于百度的数据请求）</h4>
+        <p>百度搜索数据结果：</p>
+        <div class="search">
+          <p>
+            <input type="text" v-model="text" @keyup="jsonp($event)" @keydown.enter="go()" @keydown.down="changeDown()"
+                   @keydown.up.prevent="changeUp()">
+            <button type="button" @click="go()">search</button>
+          </p>
+          <ul style="height: 280px; ">
+            <li :class="{gary:$index==now}" v-for="item in myData" @mouseover="text=item" @click="go()">{{item}}</li>
+            <li v-show="myData.length==0">暂无数据......</li>
+          </ul>
+        </div>
+        <h4>需要注意的问题：</h4>
+        <ul>
+          <li>1. 二次请求问题，在@keyup之后 需要判断按的是上下翻页键之后不会触发请求</li>
+          <li>2. 翻页时背景颜色跟随改变问题，:class="{gary:$index==now}" </li>
+          <li>3. 上翻页时候光标会前置，需要用到 .prevent取消默认行为 </li>
+        </ul>
+        
+      </section>
+      <section>
+        <h3>JS源码</h3>
+        <hr>
+        <pre>
+//html代码
+&lt;div class="search">
+  &lt;p>
+    &lt;input type="text" v-model="text" @keyup="jsonp($event)" @keydown.enter="go()" @keydown.down="changeDown()"
+           @keydown.up.prevent="changeUp()">
+          &lt;button type="button" @click="go()">search&lt;/button>
+  &lt;/p>
+    &lt;ul style="height: 280px; ">
+    &lt;li :class="{gary:$index==now}" v-for="item in myData" @mouseover="text=item"
+    @click="go()">{{item}}&lt;/li>
+    &lt;li v-show="myData.length==0">暂无数据......&lt;/li>
+  &lt;/ul>
+&lt;/div>
+
+//data数据-----------
+data: {
+  text:'',
+  myData:[],
+  now:-1
+}
+
+//js方法---------------
+jsonp:function (ev) {
+  //判断当前是否为上下键
+  if(ev.keyCode == 38 || ev.keyCode==40){
+    return;
+  }
+  //发起请求
+  this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+    wd:this.text
+  },{
+    jsonp:'cb' //callback名字
+  }).then(function (res) {
+    this.myData = res.data.s;
+  },function (res) {
+    alert(res.status);
+  });
+},
+go:function () {
+  window.open('https://www.baidu.com/s?wd='+this.text);
+  this.text='';
+  this.myData=[];
+},
+changeDown:function () {
+  this.now++;
+  if(this.now==this.myData.length){
+    this.now=0;
+  }
+  this.text=this.myData[this.now];
+},
+changeUp:function () {
+  this.now--;
+  if(this.now == -1){
+    this.now = this.myData.length-1;
+  }
+  this.text=this.myData[this.now];
+}
+</pre>
+  
+      </section>
+    </div>
+  </div>
+</div>
+</body>
+</html>
