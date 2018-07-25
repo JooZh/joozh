@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue-过渡（动画）</title>
+  <link rel="stylesheet" href="../assets/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/animate.css">
+  <link rel="stylesheet" href="../assets/common.css">
+  <script src="../assets/vue.js"></script>
+  <script src="../assets/vue-resource.js"></script>
+  <style>
+    .b{
+      width: 120px;
+      height: 110px;
+    }
+    #div1,#div2{
+      width: 100px;
+      height: 100px;
+      background: #ccc;
+      border: 1px solid #aaa;
+    }
+    /*动画的样式*/
+    .fade-transition{
+      transition: all 1s ease;
+    }
+    /*进入时候的动画*/
+    .fade-enter{
+      opacity: 0;
+    }
+    /*离开时候的动画*/
+    .fade-leave{
+      opacity:0;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="title">
+    <h3>过渡（动画）</h3>
+    <hr>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <section>
+        <h4>动画的本质：</h4>
+        <p>实际上vue的动画走的是 css3 的 transition,animation</p>
+        <hr>
+      </section>
+      <section>
+        <h4>示例:</h4>
+        <p>简单的隐现动画</p>
+        <p><input type="button" value="click me" @click="toggle1()"></p>
+        <div class="b"><div id="div1" v-show="bSign1" transition="fade"></div></div>
+        <hr>
+      </section>
+      <section>
+        <h4>代码解析：</h4>
+        <p>1. 在html中给动画元素加上 [ transition="动画名称" ] </p>
+        <pre>
+&lt;div id="div1" transition="fade">&lt;/div>
+</pre>
+        <p>2. 在css中添加对应的动画样式</p>
+        <pre>
+/*动画的样式*/
+.fade-transition{
+  transition: all 1s ease;
+}
+/*进入时候的动画*/
+.fade-enter{
+  opacity: 0;
+}
+/*离开时候的动画*/
+.fade-leave{
+  opacity:0;
+}
+</pre>
+        <p>ps: 动画样式，进入动画，离开动画 必须存在。</p>
+        <hr>
+      </section>
+      <section>
+        <section>
+          <h4>使用动画库:如Animation.css</h4>
+          <p>除了使用 animation 还能使用别的库</p>
+          <hr>
+        </section>
+        <section>
+          <h4>示例:</h4>
+          <p>特效的隐现动画</p>
+          <p><input type="button" value="click me" @click="toggle2()"></p>
+          <div class="b"><div id="div2" class="animated" v-show="bSign2" transition="zoom"></div></div>
+          <hr>
+        </section>
+        <section>
+          <p>1. 下载并且引入Animation.css</p>
+          <pre>
+&lt;link rel="stylesheet" href="../assets/animate.css">
+</pre>
+          <p>2. 在html中给动画元素添加 animation 动画类</p>
+          <pre>
+&lt;div id="div2" class="animated">&lt;/div>
+</pre>
+          <p>3. 在html中给动画元素设置动画名称(名称随意，要求有意义)</p>
+          <pre>
+&lt;div id="div2" class="animated" transition="zoom">&lt;/div>
+</pre>
+          <p>4. vue的 transitions 中定义</p>
+          <pre>
+transitions:{
+  zoom:{
+    enterClass:'zoomInLeft',
+    leaveClass:'zoomOutRight'
+  }
+}
+</pre>
+          <p>ps：transitions和methods是同样的vue属性</p>
+          <hr>
+        </section>
+      </section>
+      <section>
+        <h4>Js源码：</h4>
+        <pre>
+new Vue({
+  el:'body',
+  data:{
+    bSign1:true,
+    bSign2:true,
+  },
+  methods:{
+    toggle1:function () {
+      this.bSign1 = !this.bSign1;
+    },
+    toggle2:function () {
+      this.bSign2 = !this.bSign2;
+    }
+  },
+  transitions:{
+    zoom:{
+      enterClass:'zoomInLeft',
+      leaveClass:'zoomOutRight'
+    }
+  }
+});
+</pre>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
+  new Vue({
+    el:'body',
+    data:{
+      bSign1:true,
+      bSign2:true,
+    },
+    methods:{
+      toggle1:function () {
+        this.bSign1 = !this.bSign1;
+      },
+      toggle2:function () {
+        this.bSign2 = !this.bSign2;
+      }
+    },
+    transitions:{
+      zoom:{
+        enterClass:'zoomInLeft',
+        leaveClass:'zoomOutRight'
+      }
+    }
+  });
+</script>
+</body>
+</html>

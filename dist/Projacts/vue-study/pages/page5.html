@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue-组件</title>
+  <link rel="stylesheet" href="../assets/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/common.css">
+  <script src="../assets/vue.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="title">
+    <h3>组件</h3>
+    <hr>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <section>
+        <h4>什么是组件</h4>
+        <p>在Vue中组件就是一个大的对象</p>
+        <p>当前的组件适应于vue1.0版本</p>
+        <hr>
+      </section>
+      <section>
+        <h4>※ 浏览器组件调试工具</h4>
+        <h4>
+          <span>vue-devtools</span>
+          <a href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd"
+          title="需要翻墙">谷歌浏览器安装
+          </a>
+        </h4>
+        <hr>
+      </section>
+      <section>
+        <h4>1. 全局组件：使用 Vue.extend();</h4>
+        <p>在 vue 实例化之前定义。</p>
+        <p>Html 代码：</p>
+        <pre>
+&lt;div class="box">
+  &lt;tem>&lt;/tem>
+&lt;/div>
+</pre>
+        <p>Js 代码：</p>
+        <pre>
+var Tem = Vue.extend(
+  template:"&lt;h3>我是标题&lt;/h3>"
+);
+Vue.component('tem',Tem);
+
+//实例化 vue
+var vm = new Vue({
+  el:"body",
+  data:{
+  }
+});
+</pre>
+        <p>※ 组件内部存放数据。</p>
+        <p>data 必须是一个函数，而且必须返回</p>
+        <pre>
+var Tem = Vue.extend(
+  data:function(){
+    return{
+      msg:'我是数据'
+    }
+  },
+  template:"&lt;h3 v-text="msg">&lt;/h3>"
+);
+Vue.component('tem',Tem);
+
+//实例化 vue
+var vm = new Vue({
+  el:"body",
+  data:{
+  }
+});
+</pre>
+        <p>※ 组件内部方法。</p>
+        <p>methods 必须存放于组件内部</p>
+        <pre>
+var Tem = Vue.extend(
+  data:function(){
+    return{
+      msg:'我是数据'
+    }
+  },
+  methods:{
+    change:function(){
+      this.msg = '改变内容';
+    }
+  },
+  template:"&lt;h3 v-text="msg" @click="change()">&lt;/h3>"
+);
+Vue.component('tem',Tem);
+
+//实例化 vue
+var vm = new Vue({
+  el:"body",
+  data:{
+  }
+});
+</pre>
+        <hr>
+      </section>
+      <section>
+        <h4>2. 局部组件</h4>
+        <p>放到某个实例的内部。</p>
+        <p>使用到 vue 的属性：components</p>
+        <p>Html 代码：</p>
+        <pre>
+&lt;div class="box">
+  &lt;tem>&lt;/tem>
+&lt;/div>
+</pre>
+        <p>Js 代码：</p>
+        <pre>
+var Tem = Vue.extend(
+  template:"&lt;h3>我是标题&lt;/h3>"
+);
+
+//实例化 vue
+var vm = new Vue({
+  el:"body",
+  data:{
+  },
+  components:{ //局部组件
+    'tem':Tem
+  }
+});
+</pre>
+        <p>ps: 数据添加和方法的添加同等于全局组件定义</p>
+        <hr>
+      </section>
+      <section>
+        <h4>3. 简洁方式 使用 Vue.component();</h4>
+        <p>写在实例化 Vue 之前为全局的组件 </p>
+        <p>Html 代码：</p>
+        <pre>
+&lt;div class="box">
+  &lt;tem>&lt;/tem>
+&lt;/div>
+</pre>
+        <p>Js 代码：</p>
+        <pre>
+Vue.component('tem',{
+  template:"&lt;h3>我是全局组件&lt;/h3>"
+});
+</pre>
+        <p>写在实例化 Vue 内部为局部的组件 </p>
+        <p>Js 代码：</p>
+        <pre>
+var vm = new Vue({
+  el:"body",
+  data:{
+  },
+  components:{
+    'tem':{
+      template:"&lt;h3>我是局部组件&lt;/h3>"
+    }
+  }
+});
+</pre>
+        <p>ps: 局部组件的数据定义和方法同全局组件的定义方式</p>
+        <hr>
+      </section>
+      <section>
+        <h4>4. 组件模板</h4>
+        <p>用模板方式定义组件</p>
+        <p>html代码：</p>
+        <pre>
+&lt;div class="box">
+  &lt;template-tem>&lt;/template-tem>
+&lt;/div>
+
+&lt;template id="tem">
+  &lt;h1>标题&lt;/h1>
+  &lt;ul>
+    &lt;li v-for="val in arr"><span>{{</span>val}}&lt;/li>
+  &lt;/ul>
+&lt;/template>
+</pre>
+        <p>Js 代码：</p>
+        <pre>
+var vm = new Vue({
+  el:"body",
+  components:{
+    'template-tem':{
+      data:function(){
+        return{
+          arr:[1,2,3,4,5]
+        }
+      },
+      template:'#tem'
+    }
+  }
+});
+</pre>
+        <hr>
+      </section>
+      <section>
+        <h4>5. 父子组件</h4>
+        <p>在组件中再定义一个组件构成父子关系的组件集合</p>
+        <p><strong>构成关系：</strong></p>
+        <pre>
+&lt;div class="box">
+  &lt;template-tem>&lt;/template-tem>
+&lt;/div>
+
+&lt;!--组件模板-->
+&lt;template id="tem">
+  &lt;h1>父组件&lt;/h1>
+  <b class="j">&lt;child-tem>子组件&lt;/child-tem></b>
+&lt;/template>
+</pre>
+        <p>Js 构成：</p>
+        <pre>
+var vm = new Vue({
+  el:"body",
+  components:{
+    'template-tem':{
+      data:function(){
+        return{
+          msg:'我是父组件的数据'
+        }
+      },
+      template:'#tem',
+      <b class="j">components:{
+        'child-tem':{
+          template:'&lt;p>我是子组件&lt;/p>'
+        }
+      }</b>
+    }
+  }
+});
+</pre>
+        <p><strong>a) 子组件获取父组件数据。使用 props:{} 属性</strong></p>
+        <p>绑定属性：</p>
+        <pre>
+&lt;div class="box">
+  &lt;template-tem>&lt;/template-tem>
+&lt;/div>
+
+&lt;!--组件模板-->
+&lt;template id="tem">
+  &lt;h1>父组件&lt;/h1>
+  &lt;child-tem <b class="j">:name="msg"</b>>子组件&lt;/child-tem>
+&lt;/template>
+</pre>
+        <p>1. name 可以是任意名称但需要于props里面的名称对应</p>
+        <p>2. msg 就是父级里面的 data 数据。 </p>
+        <p>Js 构成：</p>
+        <pre>
+var vm = new Vue({
+  el:"body",
+  components:{
+    'template-tem':{
+      data:function(){
+        return{
+          msg:'我是父组件的数据'
+        }
+      },
+      template:'#tem',
+      components:{
+        'child-tem':{
+          <b class="j">props:['name'],</b>
+          template:'&lt;p>我是子组件<b class="j"><span>{{</span>name}}</b>&lt;/p>'
+        }
+      }
+    }
+  }
+});
+</pre>
+        <p>ps: 在html中的属性带有 '-' 的在js中要转换成驼峰写法</p>
+        <p>关于props的两种方式</p>
+        <pre>
+//第一种 数组写法
+components:{
+  'child-tem':{
+    <b class="j">props:['name1','name2']</b>
+  }
+}
+          
+//第二种 对象写法
+components:{
+  'child-tem':{
+    <b class="j">props:{
+      'name1':typeOf (String),
+      'name2':typeOf (Number)
+    }</b>
+  }
+}
+</pre>
+        <p><strong>b) 父级获取子集的数据</strong></p>
+        <p>就是子组件 <strong>主动</strong>把数据发送给父组件</p>
+        <p>1. 子组件发送的方式是用 vm.$emit ('事件名', 数据);</p>
+        <pre>
+&lt;input type="button" value="send" @click="send()">
+
+//子组件的发送方法
+ methods:{
+  send:function(){
+    this.$emit(<b class="j">'child-msg'</b>,this.child_msg);
+  }
+}
+</pre>
+        <p>2. 父组件接收用的 @子组件发送的事件名 = 接收方法（接收参数） </p>
+        <pre>
+&lt;child-tem @<b class="j">child-msg</b>="get()">子组件&lt;/child-tem>
+
+//父组件的接收方法
+methods:{
+  get:function(msg){
+    this.father_msg = msg;
+  }
+}
+</pre>
+        <p>html 构成：</p>
+        <pre>
+&lt;div class="box">
+  &lt;template-tem>&lt;/template-tem>
+&lt;/div>
+
+&lt;!--父组件模板-->
+&lt;template id="tem">
+  &lt;h1>父组件&lt;/h1>
+  &lt;child-tem @child-msg="get()">子组件&lt;/child-tem>
+&lt;/template>
+
+&lt;!--子组件模板-->
+&lt;template id="child-tem">
+  &lt;h1>子组件&lt;/h1>
+  &lt;input type="button" value="send" @click="send()">
+&lt;/template>
+</pre>
+        <p>Js 构成：</p>
+        <pre>
+var vm = new Vue({
+  el:"body",
+  //父组件
+  components:{
+    'template-tem':{
+      data:function(){
+        return{
+          father_msg:'我是父组件的数据'
+        }
+      },
+      methods:{
+        get:function(msg){
+          this.father_msg = msg;
+        }
+      },
+      template:'#tem',
+      //子组件
+      components:{
+        'child-tem':{
+          data:function(){
+            return{
+              child_msg:'我是子组件的数据'
+            }
+          },
+          methods:{
+            send:function(){
+              this.$emit('child-msg',this.child_msg);
+            }
+          },
+          template:'#child-tem'
+        }
+      }
+    }
+  }
+});
+</pre>
+        <hr>
+      </section>
+      <section>
+        <h4>6. slot 的用法</h4>
+        <p>作用是在组件模板中起到占位作用。</p>
+        <p>用 name 属性绑定 slot 方便切换需求的数据模板</p>
+        <p>html 构成：</p>
+        <pre>
+&lt;div class="box">
+  &lt;template-tem>
+    &lt;div name="slot-1">一些内容slot-1&lt;/div>
+    &lt;div name="slot-2">一些内容slot-2&lt;/div>
+  &lt;/template-tem>
+&lt;/div>
+
+&lt;!--组件模板-->
+&lt;template id="tem">
+  &lt;h1>组件&lt;/h1>
+  &lt;slot name="slot-1">&lt;/slot>
+  &lt;slot name="slot-2">&lt;/slot>
+&lt;/template>
+</pre>
+        <p>Js 构成：</p>
+        <pre>
+var vm = new Vue({
+  el:'body',
+  components:{
+    'template-tem':{
+      template:'#tem'
+    }
+  }
+});
+</pre>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
+
+</script>
+</body>
+</html>
