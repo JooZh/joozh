@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>歌词滚动</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		
+		body {
+			font-size: 14px;
+			font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+		}
+		
+		#lyric-wrapper {
+			width: 375px;
+			height: 667px;
+			padding: 0;
+			background: #ccc;
+			margin: 50px auto;
+			position: relative;
+		}
+		
+		.title {
+			height: 50px;
+			font-size: 18px;
+			line-height: 50px;
+			text-align: center;
+		}
+		
+		.lyric {
+			width: 100%;
+			height: 525px;
+			position: relative;
+			background: #999;
+			overflow: hidden;
+		}
+		
+		.lyric .scroll {
+			position: absolute;
+			width: 100%;
+		}
+		
+		.lyric .scroll p {
+			height: 35px;
+			overflow: hidden;
+			line-height: 2.5;
+			color: #222;
+			text-align: center;
+		}
+		
+		.lyric .scroll p.index {
+			color: chartreuse;
+		}
+		
+		.audio {
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
+		
+		.audio audio {
+			width: 100%;
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+<div id="lyric-wrapper">
+	<div class="title"></div>
+	<div class="lyric">
+		<div class="scroll"></div>
+	</div>
+	<div class="audio">
+		<audio id="myAudio" controls preload="metadata"
+		       src="http://fs.w.kugou.com/201801191244/1882eeea1761061f450b181bda6e5cf2/G002/M07/14/10/Qg0DAFT6DmGAJqCtADF7RhFK-Y4119.mp3"></audio>
+	
+	</div>
+</div>
+
+</body>
+<script src="scroll.js"></script>
+<script>
+	window.onload = function () {
+		
+		let oLyric = new Lyric({
+			lyricStr: lyricStr,     // 歌词字符串
+			showElement: '.scroll', // 传递了显示歌词的父级标签没有传递 lyricLineClass 的话默认添加 <p>
+			lyricLineClass: 'p',    // 只支持class样式，前面为标签名称 不添加默认为 <p>
+			lateTime: -500,         //歌词延迟
+		});
+		
+		console.log(oLyric);
+		
+		let oAudio = document.querySelector('#myAudio');
+		let oScroll = document.querySelector('.scroll');
+		let oLines = document.querySelectorAll('.scroll p');
+		
+		// 显示标题
+		let oTitle = document.querySelector('.title');
+		oTitle.innerHTML = oLyric.tags.ti;
+		
+		oAudio.ontimeupdate = function () {
+			show(Math.floor(oAudio.currentTime * 1000));
+		};
+		
+		function show(aTime) {
+			// 判断在哪个区间
+			let index = oLyric.lines.filter(item => aTime > item.time).length - 1;
+			if (aTime > oLyric.lines[index].time) {
+				if(oLines[index].className.indexOf('index') === -1 ){
+					for (let i = 0; i < oLines.length; i++) {
+						oLines[i].className = '';
+					}
+					oLines[index].className = 'index';
+				}
+				if (index < 7) {
+					index = 0;
+				} else if (index > oLines.length - 8) {
+					index = oLines.length - 15;
+				} else {
+					index = index - 7;
+				}
+				oScroll.style['transition-duration'] = `1000ms`;
+				oScroll.style['transition-timing-function'] = `cubic-bezier(0.165, 0.84, 0.44, 1)`;
+				oScroll.style['transform'] = `translate(0px, -${oLines[0].offsetHeight * index}px) translateZ(0px)`;
+			}
+		}
+	}
+
+</script>
+
+</html>
