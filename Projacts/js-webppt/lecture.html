@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML和CSS</title>
+    <link rel="stylesheet" href="./css/common/reset.css">
+    <link rel="stylesheet" href="./css/common/common.css">
+    <link rel="stylesheet" href="./css/common/layout.css">
+    <link rel="stylesheet" href="./css/ppt.css">
+</head>
+
+<body class="impress-not-supported">
+    <!-- 老古董浏览器的提示 -->
+    <div class="fallback-message">
+        <p>尊驾的浏览器太老土啦！<b>无法满足impress.js的要求</b>，现在你只能看到一些最朴素的演示画面。</p>
+        <p>为了欣赏漂亮的演示画面，请使用先进、优雅、快速、美丽、免费的现代浏览器，比如 <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> 。</p>
+    </div>
+    <div id="impress">
+        <!-- 
+            在下面这个场景里，我们给它设置了`data-x="-1000"`和`data-y="-1500`的属性。
+            这意味着这个元素的**中心**（是的，确实是中心）在整个幻灯片的(-1000px, -1500px)处。
+            slide 代指的是 ppt 样式
+        -->
+        <!-- 普通的单张幻灯片 -->
+        <!-- 第一张 -->
+        <div id="bored" class="step slide" data-x="-2000" data-y="-1500">
+            <pre class="content">
+<span class="title">1. 浏览器的发展</span>
+<br><span class="f2">● 第一次浏览器大战 1995～1999年 网景（Netscape）与 微软（IEx）</span>
+        <span class="f3"> 1998年1月，网景与微软IE浏览器竞争失利以后，为了挽回市场，网景通信公司公布
+              旗下所有软件以后的版本皆为免费，并开放网景通信家（Netscape）4.0的源代码，
+              成立了非正式组织Mozilla（谋智）---- 也就是（Firefox）火狐浏览器的前身</span><br>
+        <span class="f3"> IE大获全胜，因为是免费的浏览器，内嵌在windows中，普及率最高。
+              也就造成了IE浏览器的一些遗传通病。---- IE1.0 - IE5.5</span><br>
+<span class="f2">● 第二次浏览器大战 2000～2012年 五大浏览器浏览器厂商</span>
+        <span class="f3"> 2001年 windowsXP 发布，其中捆绑的万恶IE6不思进取性能落后，几年内不更新版本，
+              谷歌的崛起，苹果系统的捆绑 Safari，重生后的 Firefox 以及 Opera 浏览器的出现 <br>
+              导致了现在的主流浏览器：IE   Google   Firefox   Opera   Safari</span><br>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第二张 -->
+        <div class="step slide" data-x="-1000" data-y="-1500">
+            <pre class="content">
+<span class="title">2. 浏览器的内核</span>
+
+<span class="f3">一、Trident 内核代表产品Internet Explorer，又称其为IE内核。Trident（又称为MSHTML）
+        使用Trident渲染引擎的浏览器包括：IE、傲游、世界之窗浏览器、Avant、腾讯TT等。</span> <br>
+<span class="f3">二、Gecko 内核代表作品Mozilla FirefoxGecko是一套开放源代码的、以C++编写的网页排版引擎。
+        使用它的最著名浏览器有Firefox、Netscape6至9。</span><br>
+<span class="f3">三、WebKit 内核代表作品Safari、Chromewebkit 是一个开源项目，主要用于Mac OS系统，
+        它的特点在于源码结构清晰、渲染速度极快。主要代表作品有Safari和Google的浏览器Chrome。</span><br>
+<span class="f3">四、Presto 内核代表作品OperaPresto是由Opera Software开发的浏览器排版引擎，
+        供Opera 7.0及以上使用。</span><br>
+<span class="f3">国内的双核浏览器就是将 IE 和 Chrome 的内核整合在一个浏览器中，切换（闪电模式和 e模式）
+代表作：360极速，360安全，搜狗浏览器，QQ浏览器</span>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第三张 -->
+        <div class="step slide" data-x="0" data-y="-1500">
+            <pre class="content">
+<span class="title">3. CSS3的苦恼----针对不同的内核去做兼容</span>
+<span class="">
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    -ms-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s
+</span>
+一个CSS3的过渡属性
+要针对每一个内核去做独立的样式书写。
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第四张 -->
+        <div class="step slide" data-x="1000" data-y="-1500">
+            <pre class="content">
+<span class="title">4. 屏幕分辨率介绍</span>
+<span>
+800*600    ---- DV
+1024*768
+1280*720   ---- HD720
+1440*900
+1600*1200
+1920*1080  ---- HD1080
+2048*1150  ---- 2K
+4096×2160  ---- 4K
+</span>
+<span class="f3">分辨率越高，屏幕越小，显示越清晰</span>
+<span class="f3">传统设计中为了向下适应屏幕，设计网页的内容部分应在 800px-1000px 之间</span>
+<span class="f3">现阶段以自适应布局为主流设计，屏幕分辨率不再是现在网页设计的因素，
+兼容移动端的设备是当前设计网页一个首要思考模式</span> 
+
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第五张 -->
+        <div class="step slide" data-x="2000" data-y="-1500">
+            <pre class="content">
+<span class="title">5. 什么是HTML</span>
+
+<span class="f3">HTML是现在世界通用的超文本标记语言，
+通过它，可以实现图片、链接、音乐以及程序等等多种元素。
+现如今，HTML已经是程序员必须掌握的一项基本功
+HTML（Hyper Text Markup Language）是超文本标记语言，
+HTML不是编程语言，不同于C语言、java或C#等编程语言，
+而是一种标记语言(markup language)，
+标记语言是由一套标记标签（markup tag）
+如
+&lt;html>&lt;/html>
+&lt;head>&lt;/head>
+&lt;title>&lt;/title>
+&lt;body>&lt;/body>
+等组成。HTML就使用这些标记标签来描述网页。</span>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第六张 -->
+        <div class="step slide" data-x="3000" data-y="-1500">
+            <pre class="content">
+<span class="title">6. HTML的发展历史</span>
+<span class="f3">
+HTML没有1.0
+HTML 2.0 -- 1995年11月，RFC 1866发布
+HTML 3.2 -- 1997年1月14日，W3C发布推荐标准
+HTML 4.0 -- 1997年12月18日，W3C发布推荐标准
+HTML 4.01 -- 1999年12月24日，W3C发布推荐标准
+XHTML 1.0 -- 2000年1月26日 是W3C推荐标准
+XHTML 2.0 -- 未发布 W3C工作草案
+HTML 5 -- 2014年10月28日，W3C发布推荐标准 
+XHTML 5 -- 从XHTML 1.x的更新版，基于HTML 5草案。
+<br>每个版本都是一个新的标准，而不是新的语言。
+</span>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第七张 -->
+        <div class="step slide" data-x="3000" data-y="-700">
+            <pre class="content">
+<span class="title">7. HTML的基本结构</span> 
+<span class="f3">
+&lt;!DOCTYPE html>
+&lt;html lang="zh">
+    &lt;head>
+        &lt;meta charset="UTF-8">
+        &lt;title>标题&lt;/title>
+    &lt;/head>
+    &lt;body>
+        主体
+    &lt;/body>
+&lt;/html>
+</span><span class="f3">现在都使用 html5 的标准进行声明</span>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第八张 -->
+        <div class="step slide" data-x="2000" data-y="-700">
+            <pre class="content">
+<span class="title">8. HTML的标签（一）</span>
+ 
+<span class="f2">功能标签</span>
+<span class="f3">有特定功能，其他标签无法取代的标签
+&lt;a> --- 定义超链接
+&lt;img> --- 定义图片
+&lt;input> &lt;select> --- 表单录入
+&lt;textarea> --- 文本域
+&lt;audio> --- 音频插入
+&lt;video> --- 视频插入
+&lt;embed> --- flash插入
+&lt;object> --- 媒体对象插入
+&lt;canvas> --- js动态画布插入
+</span>                
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第九张 -->
+        <div class="step slide" data-x="1000" data-y="-700">
+            <pre class="content">
+<span class="title">9. HTML的标签（二）</span>
+
+<span class="f2">布局标签</span>
+<span class="f3">行内标签：标签里面的内容不会根据标签的换行而换行。默认没有宽高，如果CSS不设置为块元素
+                     那么CSS的宽高属性无效
+                     功能标签也可以用于布局
+                     
+                     如：
+                     &lt;span> &lt;em> &lt;i> &lt;a> &lt;img> &lt;input> 等标签 为行标签。
+
+<span class="f3">块级标签：一个标签就是单独的一行，只有使用CSS样式才能修改其为行样式。
+                     功能标签也可以用于布局
+
+                     如：
+                     &lt;h1-h6> &lt;div> &lt;p>  等标签 为块标签。
+</span>                
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第十张 -->
+        <div class="step slide" data-x="0" data-y="-700">
+            <pre class="content">
+<span class="title">10. HTML的标签（三）</span>
+
+<span class="f2">语义化标签：</span>
+<span class="f3">HTML5之前的网页布局可以从头到尾都用div+span的模式进行网页结构布局
+这样做大大的弱化了HTML的可读性，为了解决这一问题 HTML5 因地制宜的推出了语义化的标签。
+
+如：
+&lt;header> &lt;footer> &lt;section> &lt;article> &lt;nav> &lt;main> 等标签 。
+
+虽然有了语义化的标签，但是我们有时候我们会经常忘记使用。
+据说使用语义化的标签能提高搜索引擎的优化。
+
+CSS会将行标签和块标签的功能边缘化，并以类名来标示区块的作用。
+后面在进行介绍。
+</span>  
+                </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第十一张 -->
+        <div class="step slide" data-x="-1000" data-y="-700">
+            <pre class="content">
+<span class="title">11. HTML的属性</span>
+<span class="f3">属性拓展了一些HTML的一些功能，也是有些功能标签实现功能的必须要素 
+
+<span class="f3">通用属性：所有HTML标签都能使用的属性。        
+如：id  --- 唯一标示属性 一般用于 JS 脚本的节点获取，和 a标签的锚点使用
+        class --- 类标示属性 一般用于 CSS样式的定义 和 JS 脚本的节点获取
+        style --- 用于定义行内样式的属性
+        title --- 用于定义标签的提示属性
+
+<span class="f3">私有属性：标签独有的特殊属性，一般用于定义一些外来资源。
+如：href  --- a 标签 定义超链接 &lt;a href="url">&lt;/a>
+        target ---  a 标签 定义超链接打开的方式 &lt;a target="_blank">&lt;/a>
+        src --- img 标签 定义图片引入的路径 &lt;img src="url">
+        等 。。。 一个标签可以有多个属性 属性与属性之间用空格分开
+        如：&lt;a href="url" target="_blank">&lt;/a>
+</span>          
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第十二张 -->
+        <div class="step slide" data-x="-2000" data-y="-700">
+            <pre class="content">
+<span class="title">12. WEB颜色</span>
+
+<span class="f3">四种表示表示颜色的方式。
+RGB模式：rgb(0~255, 0～255，0～255)；
+RGBA模式：rgba(0~255, 0～255，0～255, 0.0～1.0)；
+颜色名称模式：
+        W3C 的 HTML 4.0 标准仅支持 16 种颜色名，它们是：
+        aqua、black、blue、fuchsia、gray、green、lime、maroon、
+        navy、olive、purple、red、silver、teal、white、yellow。
+十六进制模式：
+        由6位 十六进制的数字排列组合而成的颜色代码 如 白色： #FFFFFF, 黑色：#000000
+        前两位表示红色的亮度，中间两位表示绿色的亮度，后两位表示蓝色的亮度。
+        只是将RGB的十进制 0-255 转换成了十六进制的 00-FF 数字而已
+        十进制的 255 = 十六进制的 FF 
+</span>                 
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第十三张 -->
+        <div class="step slide" data-x="-2000" data-y="100">
+            <pre class="content">
+<span class="title">13. CSS的作用</span> 
+
+<a href="http://blog.csdn.net/u013174689/article/details/17527611" target="_blank">CSDN的页面</a>
+
+<a href="http://www.w3school.com.cn/tags/html_ref_colornames.asp" target="_blank">w3school的页面</a>
+
+去掉css文件看下网页会发生什么变化。
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第十四张 -->
+        <div class="step slide" data-x="-1000" data-y="100">
+            <pre class="content">
+<span class="title">14. 什么是CSS</span>
+<span class="f3">
+CSS为HTML标记语言提供了一种样式描述，定义了其中元素的显示方式。
+CSS在Web设计领域是一个突破。利用它可以实现修改一个小的样式更新与之相关的所有页面元素。
+
+1. CSS是用于布局与美化网页的.
+2. CSS是Cascading Style Sheets的英文缩写,即 层叠样式表.
+3. CSS语言是一种标记语言,因此不需要编译,
+    可以直接由浏览器执行(属于浏览器解释型语言).
+4. CSS文件是一个文本文件,它包含了一些CSS标记,
+    CSS文件必须使用css为文件名后缀.
+5. CSS是大小写不敏感的,CSS与css是一样的.
+6. CSS是由W3C的CSS工作组产生和维护的.
+7. 在现在，CSS已经是web中不可缺少的一部分.
+</span>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第十五张 -->
+        <div class="step slide" data-x="0" data-y="100">
+            <pre class="content">
+<span class="title">15. CSS的特点</span>
+<span class="f2">
+1. 丰富的样式定义
+<div class="f5">CSS提供了丰富的文档样式外观，以及设置文本和背景属性的能力；
+允许为任何元素创建边框，以及元素边框与其他元素间的距离，以及元素边框与元素内容间的距离；
+允许随意改变文本的大小写方式、修饰方式以及其他页面效果。
+
+</div>2. 易于使用和修改
+<div class="f5">
+CSS可以将样式定义在HTML元素的style属性中，也可以将其定义在HTML文档的header部分，
+也可以将样式声明在一个专门的CSS文件中，以供HTML页面引用
+
+</div>3. 多页面应用
+<div class="f5">
+CSS样式表可以单独存放在一个CSS文件中，这样我们就可以在多个页面中使用同一个CSS样式表。
+CSS样式表理论上不属于任何页面文件，在任何页面文件中都可以将其引用。这样就可以实现多个页面风格的统一。
+
+</div>4. 层叠
+<div class="f5">
+简单的说，层叠就是对一个元素多次设置同一个样式，这将使用最后一次设置的属性值。
+例如对一个站点中的多个页面使用了同一套CSS样式表，而某些页面中的某些元素想使用其他样式，
+就可以针对这些样式单独定义一个样式表应用到页面中
+</div>
+</span>
+
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第十六张 -->
+        <div class="step slide" data-x="1000" data-y="100">
+            <pre class="content">
+<span class="title">16. CSS发展历史</span>
+<span class="f3">
+1. 1996年W3C正式推出了CSS1
+2. 1998年W3C正式推出了CSS2
+3. 2004年W3C正式推出了CSS2.1
+4. 2002年～今 CSS3标准不断的补充中
+CSS3 被划分为模块。其中最重要的 CSS3 模块包括：
+    选择器
+    框模型
+    背景和边框
+    文本效果
+    2D/3D 转换
+    动画
+    多列布局
+    用户界面
+</span>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第十七张 -->
+        <div class="step slide" data-x="2000" data-y="100">
+            <pre class="content">
+<span class="title">17. CSS语法规则</span>
+
+<img src="http://www.w3school.com.cn/i/ct_css_selector.gif" alt="">
+<span class="f3">
+选择器：常用的有 id选择器（#id） class选择器（.class） 标签选择器(tag)  属性选择器（[title]）
+                每个选择器后面紧跟一对{ } 里面的规则对当前选择的元素生效。
+声    明：也叫规则，一条声明也就是一条规则，每条规则产生一个作用。
+                每条规则之间用 ；进行间隔 最后一条规则不需要 ；号
+规则构成： 每条规则由一个属性和值构成 如文字颜色规则 color: #FFFFFF;
+</span>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第十八张 -->
+        <div class="step slide" data-x="3000" data-y="100">
+            <pre class="content">
+<span class="title">18. 常用选择器</span>
+
+<span class="f2">1. ID选择器(作用唯一的id)</span>
+<span class="f3">ID 选择器前面有一个 #   CSS 中的定义方法  #box {color: #FFFFF}
+HTML中的使用 &lt;div id="box">&lt;/div>
+</span>
+<span class="f2">2. 类选择器（作用相同的class）</span>
+<span class="f3">类选择器前面有一个 .  CSS 中的定义方法  .box {color: #FFFFF}
+HTML中的使用 &lt;div class="box">&lt;/div>
+</span>
+<span class="f2">3. 标签选择器（作用相同的标签）</span>
+<span class="f3">标签选择器以标签开头  CSS 中的定义方法  div {color: #FFFFF}
+HTML中的使用 &lt;div>&lt;/div>
+</span>
+<span class="f2">4. 后代选择器，兄弟选择器，通配选择器</span>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第十九张 -->
+        <div class="step slide" data-x="3000" data-y="900">
+            <pre class="content">
+<span class="title">19. CSS的引入</span>
+
+<span class="f2">1. 行内样式 --- 优先级最高</span>
+<span class="f3">行内样式只作用于当前使用该样式的标签，作用域最小。但是优先级最高，使用style属性进行定义
+&lt;span style="height:200px;width:200px;">&lt;/span></span>
+
+<span class="f2">2. 页面内嵌 --- 优先级第二</span>
+<span class="f3">页面内嵌使用&lt;style>&lt;/style>标签进行定义
+标签内部使用正常的css规则的声明方式进行写样式。
+&lt;span id="box" class="box">&lt;/span></span>
+
+<span class="f2">3. 外部引入 --- 优先级第三</span>
+<span class="f3">将css样式单独写成一个css文件，引入html文件中。
+文件内部使用正常的css规则的声明方式进行写样式。在HTML内部head标签内引入
+&lt;link rel="stylesheet" href="css.css"></span>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第二十张 -->
+        <div class="step slide" data-x="2000" data-y="900">
+            <pre class="content">
+<span class="title">20. 组合属性和分离属性</span>
+
+<span class="f2">这里以背景属性进行举例</span>
+<span class="f3">.box {
+   background: #ffffff  url(bg.png)  no-repeat  center  center
+}
+上面这个组合属性可以拆分为
+.box {
+    background-color: #ffffff 
+    background-image: url(bg.png) 
+    background-repeat: no-repeat 
+    background-position: center center
+} 
+</span>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第二十一张 -->
+        <div class="step slide" data-x="1000" data-y="900">
+            <pre class="content">
+<span class="title">21. 盒子模型</span>
+
+<span class="f5">CSS中， Box Model叫盒子模型（或框模型），
+Box Model规定了元素内容（element content）、内边距（padding）、边框（border） 和 外边距（margin） 的方式。</span>
+
+<img src="http://images0.cnblogs.com/blog2015/790006/201507/281730521883310.jpg" alt="">
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第二十二张 -->
+        <div class="step slide" data-x="0" data-y="900">
+            <pre class="content">
+<span class="title">22. 布局属性</span>
+
+<span class="f2"><a href="http://blog.csdn.net/diligentkong/article/details/54312829" target="_blank">文档流介绍</a></span>
+
+<span class="f2">1. 浮动属性：<a href="http://www.jianshu.com/p/07eb19957991" target="_blank">float</a></span>
+
+<span class="f2">2. 定位属性： <a href="https://www.cnblogs.com/tim-li/archive/2012/07/09/2582618.html" target="_blank">position</a></span>           
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第二十三张 -->
+        <div class="step slide" data-x="-1000" data-y="900">
+            <pre class="content">
+<span class="title">23. HTML默认样式和标签初始化</span>
+<span class="f3">
+因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，
+如果没对CSS初始化往往会出现浏览器之间的页面显示差异。
+
+初始化CSS样式主要是提高编码质量，如果不初始化整个页面做完很糟糕，重复的CSS样式很多。
+去掉标签的默认样式如：margin,padding，其他浏览器默认解析字体大小，字体设置。
+</span>
+
+<span class="f2"><a href="link/nocss.html" target="_blank">无css的demo</a></span>
+
+<span class="f2"><a href="link/havecss.html" target="_blank">有初始化css的demo</a></span>
+
+<span class="f3"><a href="http://www.jianshu.com/p/2f938a462eaf" target="_blank">相关介绍</a></span>
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 第二十四张 -->
+        <div class="step slide" data-x="-2000" data-y="900">
+            <pre class="content">
+<span class="title">24. 动手吧萌新们</span>
+
+上午的作业：名单录入的简易界面
+
+下午的作业：留言板的简易界面 
+
+本周作业：注册登录的界面
+            </pre>
+            <div class="control">
+                <!-- 返回整个视图 -->
+                <a class="back-over" href="#overview">返回</a>
+            </div>
+        </div>
+        <!-- 这里是显示整个视图的窗口 -->
+        <!-- data-scale="5" 指的是当前的窗口缩放的比例 数值越大显示的内容越小-->
+        <div id="overview" class="step" data-x="500" data-y="-200" data-scale="5">
+        </div>
+    </div>
+    <script src="./js/impress.js"></script>
+    <script>
+        impress().init();
+    </script>
+</body>
+
+</html>
