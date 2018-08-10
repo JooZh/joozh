@@ -92,7 +92,7 @@
   display:flex;
 }
 .content .name-info .ewm-box .left{
-  flex: 1
+  flex: 70% 0 0;
 }
 .content .name-info .ewm-box .right{
   flex: 1;
