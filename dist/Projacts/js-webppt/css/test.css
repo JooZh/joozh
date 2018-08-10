@@ -1,0 +1,22 @@
+.hide {
+    cursor: pointer;
+}
+
+.hide .anser {
+    display: none;
+    color: red;
+}
+
+.start {
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+}
+
+.back-over {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    text-shadow: none;
+}

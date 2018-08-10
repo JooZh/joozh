@@ -1,0 +1,23 @@
+.back-over {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    text-shadow: none;
+    font-size: 25px;
+}
+
+.f2 {
+    font-size: 25px;
+}
+
+.f3 {
+    font-size: 20px;
+}
+
+.f5 {
+    font-size: 15px;
+}
+
+div.f5 {
+    line-height: 20px;
+}

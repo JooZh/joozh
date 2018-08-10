@@ -1,0 +1,271 @@
+@import url("https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css");
+@import url("https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+#app {
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
+}
+.home {
+  background-color: #ffeb3b;
+  color: #252525;
+}
+.home .menu > .line::after {
+  background-color: #252525;
+}
+.subscribe {
+  background-color: #252525;
+  color: #fff;
+}
+
+.about {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.contact {
+  background-color: #fff;
+  color: #252525;
+}
+
+.services {
+  background-color: #3c6394;
+  color: #fff;
+}
+
+
+#main {
+  font-size: 0.8rem;
+  position: relative;
+  z-index: 10;
+  min-height: 100%;
+}
+
+
+@media screen and (max-width: 996px) {
+  #main:before {
+    height: 110px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #main:before {
+    height: 110px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #main {
+    padding: 0 10px;
+  }
+  #main:before {
+    height: 49px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #main {
+    padding: 0 10px;
+  }
+  #main:before {
+    height: 49px;
+  }
+}
+
+.content{
+  padding: 57px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  /* background: rgba(255, 255, 255, 0.05); */
+  font-size: 14px;
+}
+
+.content .name-info{
+  margin-bottom: 10px;
+}
+
+.content .name-info .name{
+  font-size: 30px;
+  line-height: 40px;
+  margin-bottom: 10px;
+}
+.content .name-info .ewm-box{
+  display:flex;
+}
+.content .name-info .ewm-box .left{
+  flex: 1
+}
+.content .name-info .ewm-box .right{
+  flex: 1;
+  text-align: right
+}
+.content .name-info .ewm-box .right .rel{
+  margin-right: 20px;
+  display: inline-block;
+  text-align: center
+}
+.content .name-info .ewm-box .right .rel img{
+  width: 80px;
+  height: 80px;
+  display: block;
+  border: 1px solid #666666
+}
+
+
+.content .name-info .status span{
+  background: #252525;
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 10px;
+  margin-right: 5px;
+}
+
+.content .name-info .relation span{
+  margin-right: 10px;
+  color: #000;
+  font-size: 12px;
+}
+
+.content a{
+  color: #000;
+}
+
+.content .items{
+  margin-bottom: 30px;
+}
+
+.content .items .header{
+  position: relative;
+  font-size: 28px;
+  line-height: 80px;
+  margin-bottom: 20px;
+}
+
+.content .items .header:before {
+  content: "";
+  width: 100%;
+  border-radius: 5px;
+  background: #252525;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+}
+
+.content .items .item{
+  margin-bottom: 20px;
+}
+
+.content .items .item .item-name{
+  line-height: 40px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.content .items .item .item-name .time{
+  color: #252525;
+}
+
+.content .items .item .type{
+  color: #252525;
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.content .items .item .type span{
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.content .items .item .type span.r{
+  text-align: right;
+}
+
+.content .items .item .lists{
+  margin-bottom: 30px;
+}
+
+.content .items .item .lists .lists-title{
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.content .items .item .lists .lists-content{
+  color: #252525;
+}
+
+.content .items .item .lists .lists-content.no-t .list .list-t{
+  -webkit-box-flex: 30px;
+  -ms-flex: 30px 0 0px;
+  flex: 30px 0 0;
+}
+
+.content .items .item .lists .lists-content .list{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+
+.content .items .item .lists .lists-content .list .list-t{
+  -webkit-box-flex: 65px;
+  -ms-flex: 65px 0 0px;
+  flex: 65px 0 0;
+}
+
+.content .items .item .lists .lists-content .list .list-t .icon{
+  margin-right: 2px;
+}
+
+.content .items .item .lists .lists-content .list .list-c{
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.content .items .item .lists .lists-content .list .list-c i{
+  margin-right: 2px;
+  font-size: 9px;
+  background: #252525;
+  padding: 0px 5px;
+  border-radius: 10px;
+  position: relative;
+  top: -1px;
+  color: #fff;
+}
+
+.content .items .item .lists .lists-content .list .list-c span{
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+@media screen and (max-width: 996px) {
+  .content{
+    padding: 57px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .content{
+    padding: 57px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .content{
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .content{
+    padding: 15px;
+  }
+}
